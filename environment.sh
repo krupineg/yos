@@ -12,19 +12,21 @@
 #alias c++=$(which g++-12)
 #sudo unlink $PREFIX
 #sudo ln -s $PWD/build/tmp/compiler/i386elfgcc $PREFIX
-export TARGET=i686-elf
+export YOS_TARGET=i686-elf
+export YOS_GCC_VERSION=12.2.0
+export YOS_HOMEBREW_REPO=/opt/homebrew/Cellar
 #ln -s /opt/homebrew/Cellar/gcc/12.2.0/bin/gcc-12 /opt/homebrew/Cellar/gcc/12.2.0/bin/gcc
 #ln -s /opt/homebrew/Cellar/gcc/12.2.0/bin/g++-12 /opt/homebrew/Cellar/gcc/12.2.0/bin/g++
 
-unlink /opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin/gcc
-unlink /opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin/g++
-ln -s /opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin/i686-elf-gcc /opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin/gcc
-ln -s /opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin/i686-elf-g++ /opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin/g++
+unlink $YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin/gcc
+unlink $YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin/g++
+ln -s $YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin/$YOS_TARGET-gcc $YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin/gcc
+ln -s $YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin/$YOS_TARGET-g++ $YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin/g++
  
 
 
 #export PATH="/opt/homebrew/Cellar/gcc/12.2.0/bin:$PREFIX/bin:$PATH"
-export PATH="/opt/homebrew/Cellar/i686-elf-gcc/12.2.0/bin:$PATH"
+export PATH="$YOS_HOMEBREW_REPO/$YOS_TARGET-gcc/$YOS_GCC_VERSION/bin:$PATH"
 
 #alias ld=$PREFIX/bin/i386-elf-ld
 #export CC=/opt/homebrew/Cellar/gcc/12.2.0/bin/gcc-12
