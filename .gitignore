@@ -1,5 +1,1 @@
-build/bootsect.bin
-build/kernel_entry.o
-build/kernel.bin
-build/kernel.o
-build/os-image.bin
+build/
