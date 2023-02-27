@@ -36,11 +36,11 @@ run: ./build/os-image.bin
 
 ./build/boot/kernel_entry.o: ./src/boot/kernel_entry.asm
 	nasm $< -f elf -o $@
-
-./build/kernel/${KERNEL_OBJ}: ${KERNEL_SRC}
+	
+./build/kernel/%.o: ./src/kernel/%.c
 	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
 
-./build/drivers/${DRIVERS_OBJ}: ${DRIVERS_SRC} ${DRIVERS_H}
+./build/drivers/%.o: ./src/drivers/%.c
 	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
 
 # Rule to disassemble the kernel - may be useful to debug
