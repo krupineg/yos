@@ -3,7 +3,8 @@
 # $^ = all dependencies
 DIRS=build build/boot build/kernel build/drivers
 # Nice syntax for file extension replacement
-OBJ = $(wildcard build/kernel/*.o build/drivers/*.o)
+SRC = $(wildcard src/boot/*.c src/kernel/*.c src/drivers/*.c)
+OBJ = $(subst src,build, ${SRC:.c=.o})
 
 DRIVERS_SRC=$(wildcard src/drivers/*.c)
 DRIVERS_H = $(wildcard src/drivers/*.h)
@@ -13,9 +14,9 @@ KERNEL_SRC=$(wildcard src/kernel/*.c)
 KERNEL_H = $(wildcard src/kernel/*.h)
 KERNEL_OBJ = $(subst src,build, ${KERNEL_SRC:.c=.o})
 
-CFLAGS=-g#gdb -g -DDEBUG
+CFLAGS=-g 
 CC=i686-elf-gcc
-LD=i686-elf-ld
+LD=i686-elf-ld 
 GDB=i386-elf-gdb
 
 print-%  : ; @echo $* = $($*)
@@ -59,5 +60,5 @@ debug: ./build/os-image.bin ./build/kernel/kernel.elf
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file ./build/kernel/kernel.elf"
 
 # Used for debugging purposes
-./build/kernel/kernel.elf: ./build/boot/kernel_entry.o ${KERNEL_OBJ} ${DRIVERS_OBJ}
+./build/kernel/kernel.elf: ./build/boot/kernel_entry.o ${OBJ}
 	${LD} ${CFLAGS} -o $@ -Ttext 0x1000 $^
